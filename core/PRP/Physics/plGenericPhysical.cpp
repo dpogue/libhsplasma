@@ -411,7 +411,8 @@ void plGenericPhysical::IReadHKPhysical(hsStream* S, plResManager* mgr) {
     fFriction = S->readFloat();
     fRestitution = S->readFloat();
     fBounds = (plSimDefs::Bounds)S->readInt();
-    fHavokFlags = fMemberGroup = plHKSimDefs::fromGroup(hMemberGroup = S->readInt());
+    fHavokFlags = hMemberGroup = S->readInt();
+    fMemberGroup = plHKSimDefs::fromGroup(fHavokFlags);
     fReportGroup = plHKSimDefs::getBitshiftGroup(hReportGroup = S->readInt());
     fCollideGroup = plHKSimDefs::getBitshiftGroup(hCollideGroup = S->readInt());
     fDisableReport = S->readBool();
