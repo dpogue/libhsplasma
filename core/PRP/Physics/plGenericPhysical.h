@@ -63,6 +63,9 @@ protected:
     hsTArray<hsVector3> fVerts;
     hsTArray<unsigned int> fIndices;
 
+    // Havok Properties
+    unsigned int fHavokFlags;
+
     // ODE Properties
     size_t fTMDSize;
     unsigned char* fTMDBuffer;

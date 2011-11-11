@@ -65,7 +65,8 @@ plGenericPhysical::plGenericPhysical()
                    fMemberGroup(plSimDefs::kGroupStatic),
                    fCollideGroup(0), fReportGroup(0),
                    fDisableReport(false), fDisableCollide(false), fLOSDBs(0),
-                   fRadius(0.0f), fLength(0.0f), fTMDSize(0), fTMDBuffer(NULL) {
+                   fRadius(0.0f), fLength(0.0f), fHavokFlags(0), fTMDSize(0),
+                   fTMDBuffer(NULL) {
     fProps.setName(plSimulationInterface::kDisable, "kDisable");
     fProps.setName(plSimulationInterface::kWeightless, "kWeightless");
     fProps.setName(plSimulationInterface::kPinned, "kPinned");
@@ -410,7 +411,7 @@ void plGenericPhysical::IReadHKPhysical(hsStream* S, plResManager* mgr) {
     fFriction = S->readFloat();
     fRestitution = S->readFloat();
     fBounds = (plSimDefs::Bounds)S->readInt();
-    fMemberGroup = plHKSimDefs::fromGroup(hMemberGroup = S->readInt());
+    fHavokFlags = fMemberGroup = plHKSimDefs::fromGroup(hMemberGroup = S->readInt());
     fReportGroup = plHKSimDefs::getBitshiftGroup(hReportGroup = S->readInt());
     fCollideGroup = plHKSimDefs::getBitshiftGroup(hCollideGroup = S->readInt());
     fDisableReport = S->readBool();
@@ -616,7 +617,7 @@ void plGenericPhysical::IWriteHKPhysical(hsStream* S, plResManager* mgr) {
     }
     S->writeInt(fBounds);
 
-    S->writeInt(memGroup);
+    S->writeInt(memGroup | (fHavokFlags & 0xFFFF));
     S->writeInt(repGroup);
     S->writeInt(colGroup);
 
