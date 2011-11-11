@@ -217,16 +217,20 @@ unsigned int plPythonParameter::MappedToPlasma(unsigned int type, PlasmaVer ver)
         case kSubtitle: return 23;
         case kBlowerComponent: return 24;
         case kGrassShaderComponent: return 25;
-        case kNone: return 26;
-        default: return 0;
+
+        case kNone:
+        default:
+            return 26;
         }
     } else {
         switch (type) {
         case kClusterComponent: return 20;
         case kMaterialAnimation: return 21;
         case kGrassShaderComponent: return 22;
-        case kNone: return 23;
-        default: return 0;
+
+        case kNone:
+        default:
+            return 23; /* Use kNone as a fallback for invalid */
         }
     }
 }
