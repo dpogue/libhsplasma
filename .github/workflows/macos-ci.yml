@@ -1,6 +1,9 @@
 name: macOS-CI
 on: [push, pull_request]
 
+env:
+  SYSTEM_VERSION_COMPAT: 1
+
 jobs:
   build:
     runs-on: macOS-latest
